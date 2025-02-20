@@ -1,0 +1,27 @@
+# .gitignore
+
+# Ignore environment variables file
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+.env
+
+# Conda & Virtual Environments
+env/
+venv/
+fastapi_env/
+
+# Logs & Caches
+*.log
+*.pid
+
+# VSCode 
+.vscode/
+.idea/
+
+# Docker
+*.dockerfile
+*.tar
