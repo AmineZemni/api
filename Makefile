@@ -1,15 +1,21 @@
-# Makefile
+VENV_DIR := .venv
 
 .PHONY: install start test
 
 # Install production dependencies (using the minimal requirements.txt)
 install:
-	pip install -r requirements.txt
+	python3 -m venv $(VENV_DIR)
+	. $(VENV_DIR)/bin/activate && pip install --upgrade pip
+	. $(VENV_DIR)/bin/activate && pip install -r requirements.txt
+	. $(VENV_DIR)/bin/activate && pip install -r requirements-dev.txt
+	. $(VENV_DIR)/bin/activate && pip install -r requirements-dev.txt && pre-commit install
 
 # Start the FastAPI application in development mode
 start:
-	uvicorn app.main:app --reload
+	$(MAKE) install
+	. $(VENV_DIR)/bin/activate && uvicorn app.main:app --reload
 
 # Run tests (if you add any, e.g., with pytest)
 test:
-	pytest
+	$(MAKE) install
+	. $(VENV_DIR)/bin/activate && pytest

@@ -12,6 +12,7 @@ __pycache__/
 # Conda & Virtual Environments
 env/
 venv/
+.venv
 fastapi_env/
 
 # Logs & Caches
