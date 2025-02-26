@@ -26,3 +26,6 @@ fastapi_env/
 # Docker
 *.dockerfile
 *.tar
+
+# Files for local dev
+folder structure.txt

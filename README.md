@@ -30,7 +30,7 @@ Steps:
 
 2- Open your browser and go to: http://127.0.0.1:8000/docs
 
-3- Find the API and TY
+3- Find the API and Try it 
 
 4- Click on Try it out → Enter values for value1 and value2 → Click Execute.
 
