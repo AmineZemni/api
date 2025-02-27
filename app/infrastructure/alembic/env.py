@@ -7,7 +7,6 @@ load_dotenv()
 from logging.config import fileConfig
 from sqlalchemy import create_engine, pool
 from alembic import context
-from app.infrastructure.models.base import Base  # Corrected import for Base
 
 # Load Alembic configuration
 config = context.config
@@ -26,7 +25,7 @@ config.set_main_option("sqlalchemy.url", SYNC_DATABASE_URL)
 
 # Create a synchronous engine for migrations
 engine = create_engine(SYNC_DATABASE_URL, poolclass=pool.NullPool)
-target_metadata = Base.metadata
+target_metadata = None
 
 
 def run_migrations_offline() -> None:

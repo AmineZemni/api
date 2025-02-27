@@ -2,7 +2,6 @@ VENV_DIR := .venv
 
 .PHONY: install start test
 
-# Install production dependencies (using the minimal requirements.txt)
 install:
 	python3 -m venv $(VENV_DIR)
 	. $(VENV_DIR)/bin/activate && pip install --upgrade pip
@@ -10,12 +9,19 @@ install:
 	. $(VENV_DIR)/bin/activate && pip install -r requirements-dev.txt
 	. $(VENV_DIR)/bin/activate && pip install -r requirements-dev.txt && pre-commit install
 
-# Start the FastAPI application in development mode
+migrate:
+	. $(VENV_DIR)/bin/activate && alembic upgrade head
+
+downgrade:
+	. $(VENV_DIR)/bin/activate && alembic downgrade -1
+
 start:
 	$(MAKE) install
+	docker compose up -d
+	$(MAKE) migrate
 	. $(VENV_DIR)/bin/activate && uvicorn app.main:app --reload
 
-# Run tests (if you add any, e.g., with pytest)
 test:
 	$(MAKE) install
+	$(MAKE) migrate
 	. $(VENV_DIR)/bin/activate && pytest
