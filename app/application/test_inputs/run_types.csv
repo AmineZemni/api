@@ -1,0 +1,10 @@
+﻿run_type,timing
+initrecog,bop
+opening,bop
+openchg,bop
+modelchg,bop
+businesschg,bop
+expvar,eop
+techasschg,eop
+finasschg,eop
+closing,eop
