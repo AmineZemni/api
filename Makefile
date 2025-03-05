@@ -8,10 +8,6 @@ install:
 	. $(VENV_DIR)/bin/activate && pip install -r requirements.txt
 	. $(VENV_DIR)/bin/activate && pip install -r requirements-dev.txt
 	. $(VENV_DIR)/bin/activate && pip install -r requirements-dev.txt && pre-commit install
-
-install-engine:
-	python3 -m venv $(VENV_DIR)
-	. $(VENV_DIR)/bin/activate && pip install --upgrade pip
 	. $(VENV_DIR)/bin/activate && pip install git+ssh://git@github.com/Novacture/ifrs17-calc-engine.git@staging
 
 migrate:
