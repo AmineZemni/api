@@ -1,0 +1,8 @@
+﻿cf_item,cf_desc,cf_dir,cf_sign
+prm,Premiums,inflow,-1
+clm,Claims,outflow,1
+exp,Expenses,outflow,1
+com,Commissions,outflow,1
+acq,AcqCosts,outflow,1
+pro,ProfitSharing,outflow,1
+inv,InvestmentComponent,outflow,1

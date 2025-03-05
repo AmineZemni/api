@@ -1,0 +1,13 @@
+﻿aoc_step,aoc_desc,aoc_timing
+initrecog,,bop
+opening,,bop
+openchg,,bop
+modelchg,,bop
+businesschg,,bop
+release,,r_f
+unwind,,r_f
+expvar,,eop
+techasschg,,eop
+finasschg,,eop
+curvechg,,eop
+closing,,eop

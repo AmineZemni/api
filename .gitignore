@@ -19,8 +19,7 @@ fastapi_env/
 *.log
 *.pid
 
-# VSCode 
-.vscode/
+# VSCode
 .idea/
 
 # Docker

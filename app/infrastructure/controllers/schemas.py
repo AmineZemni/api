@@ -1,10 +1,14 @@
 from pydantic import BaseModel
 
 
-class CalculationRequest(BaseModel):
+class CalculationSampleRequest(BaseModel):
     value1: float
     value2: float
 
 
-class CalculationResponse(BaseModel):
+class CalculationSampleResponse(BaseModel):
     result: float
+
+
+class CalculationIdResponse(BaseModel):
+    id: str
