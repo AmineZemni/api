@@ -1,7 +1,10 @@
-from app.infrastructure.controllers.schemas import (
-    CalculationIdResponse,
+from app.infrastructure.controllers.request_schemas import (
+    CalculationLKDRequest,
     CalculationSampleRequest,
+)
+from app.infrastructure.controllers.response_schemas import (
     CalculationSampleResponse,
+    CalculationIdResponse,
 )
 from app.application.commands.add_values_command_handler import addValuesCommandHandler
 from app.application.commands.calculate_lkd_bloc_command_handler import (
@@ -9,24 +12,14 @@ from app.application.commands.calculate_lkd_bloc_command_handler import (
 )
 
 from fastapi import APIRouter, UploadFile, File, HTTPException
-from typing import List
 
 calculations_router = APIRouter()
 
 
 @calculations_router.post("/sample", response_model=CalculationSampleResponse)
 def postCalculation(calculation: CalculationSampleRequest):
-    result = addValuesCommandHandler.execute(calculation.value1, calculation.value2)
+    result = addValuesCommandHandler.execute(calculation)
     return CalculationSampleResponse(result=result)
-
-
-'''
-@calculations_router.post("/lkd-bloc", response_model=CalculationIdResponse)
-def postCalculation():
-    """Endpoint for LKD bloc calculation (legacy version)."""
-    id = calculateLKDBlocCommandHandler.execute()
-    return CalculationIdResponse(id=id)
-'''
 
 
 @calculations_router.post("/lkd-bloc", response_model=CalculationIdResponse)
@@ -43,20 +36,19 @@ async def calculate_lkd(
     monthly_yield_curves_file: UploadFile = File(...),
 ):
     """Endpoint to calculate LKD using uploaded CSV files."""
-    try:
-        handler = calculateLKDBlocCommandHandler
-        calculation_id = await handler.execute(
-            aoc_step_file,
-            calc_process_file,
-            cf_items_file,
-            discount_types_file,
-            reporting_process_file,
-            run_types_file,
-            timeframe_file,
-            uao_file,
-            lrc_input_proj_file,
-            monthly_yield_curves_file,
-        )
-        return CalculationIdResponse(id=calculation_id)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+
+    calculation_files = CalculationLKDRequest(
+        aoc_step_file=aoc_step_file,
+        calc_process_file=calc_process_file,
+        cf_items_file=cf_items_file,
+        discount_types_file=discount_types_file,
+        reporting_process_file=reporting_process_file,
+        run_types_file=run_types_file,
+        timeframe_file=timeframe_file,
+        uao_file=uao_file,
+        lrc_input_proj_file=lrc_input_proj_file,
+        monthly_yield_curves_file=monthly_yield_curves_file,
+    )
+
+    calculation_id = await calculateLKDBlocCommandHandler.execute(calculation_files)
+    return CalculationIdResponse(id=calculation_id)

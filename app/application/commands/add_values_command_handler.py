@@ -1,9 +1,10 @@
-from app.application.types import Command
+from app.application.types import CommandHandler
+from app.infrastructure.controllers.request_schemas import CalculationSampleRequest
 
 
-class AddValuesCommandHandler(Command):
-    def execute(self, value1: float, value2: float) -> float:
-        return value1 + value2
+class AddValuesCommandHandler(CommandHandler):
+    def execute(self, command: CalculationSampleRequest) -> float:
+        return command.value1 + command.value2
 
 
 addValuesCommandHandler = AddValuesCommandHandler()

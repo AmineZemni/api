@@ -1,7 +1,11 @@
 from abc import ABC, abstractmethod
+from typing import TypeVar, Generic
+from pydantic import BaseModel
+
+C = TypeVar("C", bound=BaseModel)
 
 
-class Command(ABC):
+class CommandHandler(ABC, Generic[C]):
     @abstractmethod
-    def execute(self):
+    def execute(self, _: C):
         pass
