@@ -3,6 +3,7 @@ from app.database import DatabaseService
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 from app.infrastructure.controllers.calculations_controller import calculations_router
+from app.infrastructure.controllers.form_run_settings_controller import form_router
 
 db_service = DatabaseService()
 
@@ -25,3 +26,4 @@ def db(session: Session = Depends(db_service.get_session)):
 
 
 app.include_router(calculations_router)
+app.include_router(form_router)
