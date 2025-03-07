@@ -1,17 +1,17 @@
+from fastapi import APIRouter, File, UploadFile
+
+from app.application.commands.add_values_command_handler import addValuesCommandHandler
+from app.application.commands.calculate_lkd_bloc_command_handler import (
+    calculateLKDBlocCommandHandler,
+)
 from app.infrastructure.controllers.request_schemas import (
     CalculationLKDRequest,
     CalculationSampleRequest,
 )
 from app.infrastructure.controllers.response_schemas import (
-    CalculationSampleResponse,
     CalculationIdResponse,
+    CalculationSampleResponse,
 )
-from app.application.commands.add_values_command_handler import addValuesCommandHandler
-from app.application.commands.calculate_lkd_bloc_command_handler import (
-    calculateLKDBlocCommandHandler,
-)
-
-from fastapi import APIRouter, UploadFile, File
 
 calculations_router = APIRouter()
 
@@ -51,4 +51,5 @@ async def calculate_lkd(
     )
 
     calculation_id = await calculateLKDBlocCommandHandler.execute(calculation_files)
+
     return CalculationIdResponse(id=calculation_id)

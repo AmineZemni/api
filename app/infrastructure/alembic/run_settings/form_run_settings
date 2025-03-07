@@ -1,0 +1,93 @@
+0bb30fac-5181-4e94-90f8-61b1b130948c:
+  id: 0bb30fac-5181-4e94-90f8-61b1b130948c
+  run_settings:
+    activated_policy_monthproj_results: N
+    activated_policy_nonproj_results: N
+    activation_premium_rate: 0.7
+    cancellation_penalty_rate: 0.0
+    chunk_size: 1000
+    cohort_quarterproj_results: some_value
+    deposit_premium_rate: 0.3
+    fees_for_malath_being_leader: 0.0
+    first_management_expense_pc: 0.9
+    malath_lead_limit_date: 24/06/2065
+    malath_share_of_pool: 1.0
+    next_reporting_date: 31/03/2025
+    nonactivated_policy_monthproj_results: N
+    nonactivated_policy_nonproj_results: N
+    path_activated_policy_monthproj_results: local_runs/run_exports
+    path_activated_policy_nonproj_results: local_runs/run_exports
+    path_nonactivated_policy_monthproj_results: local_runs/run_exports/nonactivated_policy_monthproj_results.csv
+    path_nonactivated_policy_nonproj_results: local_runs/run_exports/nonactivated_policy_nonproj_results.csv
+    policies_sample:
+    - 12345
+    - 1
+    - 2
+    - 3
+    projection_periods: 500
+    reinsurance_commissions_amortisation: 0.025
+    reporting_date: 31/12/2024
+    run_model: after_activation
+    run_policies: all_policies
+    start_date: 31/12/2020
+    valuation_date: 31/12/2024
+4d571491-2c5d-4958-a5ad-74017bb6f86c:
+  id: 4d571491-2c5d-4958-a5ad-74017bb6f86c
+  run_settings:
+    activated_policy_monthproj_results: N
+    activated_policy_nonproj_results: N
+    activation_premium_rate: 0.7
+    cancellation_penalty_rate: 0.0
+    chunk_size: 1000
+    cohort_quarterproj_results: some_value
+    deposit_premium_rate: 0.3
+    fees_for_malath_being_leader: 0.0
+    first_management_expense_pc: 0.9
+    malath_lead_limit_date: 24/06/2065
+    malath_share_of_pool: 1.0
+    next_reporting_date: 31/03/2025
+    nonactivated_policy_monthproj_results: N
+    nonactivated_policy_nonproj_results: N
+    path_activated_policy_monthproj_results: local_runs/run_exports
+    path_activated_policy_nonproj_results: local_runs/run_exports
+    path_nonactivated_policy_monthproj_results: local_runs/run_exports/nonactivated_policy_monthproj_results.csv
+    path_nonactivated_policy_nonproj_results: local_runs/run_exports/nonactivated_policy_nonproj_results.csv
+    policies_sample:
+    - 12345
+    projection_periods: 500
+    reinsurance_commissions_amortisation: 0.025
+    reporting_date: 31/12/2024
+    run_model: after_activation
+    run_policies: all_policies
+    start_date: 31/12/2020
+    valuation_date: 31/12/2024
+5b2ad97c-ae91-4102-955b-04dd52e570cf:
+  id: 5b2ad97c-ae91-4102-955b-04dd52e570cf
+  run_settings:
+    activated_policy_monthproj_results: N
+    activated_policy_nonproj_results: N
+    activation_premium_rate: 0.7
+    cancellation_penalty_rate: 0.0
+    chunk_size: 1000
+    cohort_quarterproj_results: some_value
+    deposit_premium_rate: 0.3
+    fees_for_malath_being_leader: 0.0
+    first_management_expense_pc: 0.9
+    malath_lead_limit_date: 24/06/2065
+    malath_share_of_pool: 1.0
+    next_reporting_date: 31/03/2025
+    nonactivated_policy_monthproj_results: N
+    nonactivated_policy_nonproj_results: N
+    path_activated_policy_monthproj_results: local_runs/run_exports
+    path_activated_policy_nonproj_results: local_runs/run_exports
+    path_nonactivated_policy_monthproj_results: local_runs/run_exports/nonactivated_policy_monthproj_results.csv
+    path_nonactivated_policy_nonproj_results: local_runs/run_exports/nonactivated_policy_nonproj_results.csv
+    policies_sample:
+    - 25029044
+    projection_periods: 500
+    reinsurance_commissions_amortisation: 0.025
+    reporting_date: 31/12/2024
+    run_model: after_activation
+    run_policies: all_policies
+    start_date: 31/12/2020
+    valuation_date: 31/12/2024

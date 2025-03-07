@@ -9,3 +9,4 @@ python-dotenv==1.0.1
 python-multipart
 pandas
 git+ssh://git@github.com/Novacture/ifrs17-calc-engine.git@staging#egg=ifrs_17_engine
+

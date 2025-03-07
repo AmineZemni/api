@@ -1,0 +1,107 @@
+csv_files:
+  lrc_input_proj.csv:
+    columns:
+      uoa_id:
+        types: [str]
+      contract_type:
+        types: [str]
+      liability_type:
+        types: [str]
+      cashflow_item:
+        types: [str]
+      run_timing:
+        types: [str]
+      run_type:
+        types: [str]
+      proj_freq:
+        types: [str]
+      measure_type:
+        types: [str]
+      measure_name:
+        types: [str]
+      calc_proj_m:
+        types: [float, int64]
+      cf_proj_amt:
+        types: [float, int64]
+  monthly_yield_curves.csv:
+    columns:
+      timeframe_proj_m_date:
+        types: [date]
+      timeframe_proj_m:
+        types: [float, int64]
+      uoa_id:
+        types: [str]
+      lkd_fwd_rt:
+        types: [float, int64]
+      lkd_disc_pc:
+        types: [float, int64]
+      prv_fwd_rt:
+        types: [float, int64]
+      prv_disc_pc:
+        types: [float, int64]
+      crr_fwd_rt:
+        types: [float, int64]
+      crr_disc_pc:
+        types: [float, int64]
+  cf_items.csv:
+    columns:
+      cf_item:
+        types: [str]
+      cf_desc:
+        types: [str]
+      cf_dir:
+        types: [str]
+      cf_sign:
+        types: [float, int64]
+  timeframe.csv:
+    columns:
+      timeframe_id:
+        types: [float, int64]
+      timeframe_start_date:
+        types: [date]
+      timeframe_dur_m:
+        types: [float, int64]
+  reporting_process.csv:
+    columns:
+      reporting_process_id:
+        types: [float, int64]
+      reporting_opening_date:
+        types: [date]
+      reporting_closing_date:
+        types: [date]
+  calc_process.csv:
+    columns:
+      calc_process_id:
+        types: [float, int64]
+      calc_start_date:
+        types: [date]
+      calc_end_date:
+        types: [date]
+  discount_types.csv:
+    columns:
+      discount_type:
+        types: [str]
+      discount_desc:
+        types: [str]
+  aoc_step.csv:
+    columns:
+      aoc_step:
+        types: [str]
+      aoc_desc:
+        types: [str]
+      aoc_timing:
+        types: [str]
+  uao.csv:
+    columns:
+      uoa_id:
+        types: [str]
+      uoa_initrecog_date:
+        types: [date]
+      uoa_expiry_date:
+        types: [date]
+  run_types.csv:
+    columns:
+      run_type:
+        types: [str]
+      timing:
+        types: [str]
