@@ -6,7 +6,6 @@ from app.infrastructure.controllers.calculations_controller import calculations_
 
 db_service = DatabaseService()
 
-
 app = FastAPI(
     title="Novacture API",
     description="Novacture API",
