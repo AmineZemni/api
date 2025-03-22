@@ -1,9 +1,11 @@
 fastapi==0.115.8
 uvicorn==0.34.0
 pydantic==2.10.6
-python-dotenv==1.0.1
+alembic>=1.14.0
+sqlalchemy==2.0.29
 sqlalchemy-utils==0.41.1
 psycopg2-binary==2.9.9
-alembic==1.14.1
-pandas
+python-dotenv==1.0.1
 python-multipart
+pandas
+git+ssh://git@github.com/Novacture/ifrs17-calc-engine.git@staging#egg=ifrs_17_engine
