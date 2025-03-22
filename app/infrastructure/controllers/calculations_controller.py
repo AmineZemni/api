@@ -11,7 +11,7 @@ from app.application.commands.calculate_lkd_bloc_command_handler import (
     calculateLKDBlocCommandHandler,
 )
 
-from fastapi import APIRouter, UploadFile, File, HTTPException
+from fastapi import APIRouter, UploadFile, File
 
 calculations_router = APIRouter()
 

@@ -8,7 +8,10 @@ install:
 	. $(VENV_DIR)/bin/activate && pip install -r requirements.txt
 	. $(VENV_DIR)/bin/activate && pip install -r requirements-dev.txt
 	. $(VENV_DIR)/bin/activate && pip install -r requirements-dev.txt && pre-commit install
-	. $(VENV_DIR)/bin/activate && pip install git+ssh://git@github.com/Novacture/ifrs17-calc-engine.git@staging
+
+clean-install:
+	rm -rf $(VENV_DIR)
+	$(MAKE) install
 
 migrate:
 	. $(VENV_DIR)/bin/activate && alembic upgrade head
@@ -17,12 +20,23 @@ downgrade:
 	. $(VENV_DIR)/bin/activate && alembic downgrade -1
 
 start:
-	$(MAKE) install
 	docker compose up -d
 	$(MAKE) migrate
 	. $(VENV_DIR)/bin/activate && uvicorn app.main:app --reload
 
-test:
+start-install:
 	$(MAKE) install
+	$(MAKE) start
+
+start-clean-install:
+	$(MAKE) clean-install
+	$(MAKE) start
+
+test:
+	docker compose up -d
 	$(MAKE) migrate
 	. $(VENV_DIR)/bin/activate && pytest
+
+test-install:
+	$(MAKE) install
+	$(MAKE) test

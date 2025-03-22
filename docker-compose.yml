@@ -5,9 +5,9 @@ services:
     image: postgres:13
     restart: always
     environment:
-      POSTGRES_USER: ifrs
-      POSTGRES_PASSWORD: ifrs
-      POSTGRES_DB: ifrsdb
+      POSTGRES_USER: novacture
+      POSTGRES_PASSWORD: novacture
+      POSTGRES_DB: novacturedb
     ports:
       - "51432:5432"
     volumes:
