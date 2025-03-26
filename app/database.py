@@ -23,11 +23,7 @@ class DatabaseService:
         )
 
     def get_session(self):
-        db = self.SessionLocal()
-        try:
-            yield db
-        finally:
-            db.close()
+        return self.SessionLocal()
 
 
 db_service = DatabaseService()

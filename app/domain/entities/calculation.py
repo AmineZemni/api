@@ -1,8 +1,8 @@
-import uuid
+from uuid import UUID
 
 
 class Calculation:
-    id: uuid.UUID
+    id: UUID
     x1: float
     x2: float
     result: float
