@@ -6,6 +6,7 @@ from ifrs_17_engine.blocs.timeframe import calc_timeframe
 from ifrs_17_engine.tools.cashflow_transformation import transform_cashflow_projection
 from app.application.types import CommandHandler
 from app.infrastructure.controllers.request_schemas import CalculationLKDRequest
+from app.application.commands.validators.lkd_validator import lKDValidationService
 
 
 class CalculateLKDBlocCommandHandler(CommandHandler):
@@ -14,6 +15,20 @@ class CalculateLKDBlocCommandHandler(CommandHandler):
         command: CalculationLKDRequest,
     ) -> str:
         """Execute the LKD calculation using uploaded CSV files."""
+
+        await lKDValidationService.validate_lkd_input_files(
+            command.aoc_step_file,
+            command.calc_process_file,
+            command.cf_items_file,
+            command.discount_types_file,
+            command.reporting_process_file,
+            command.run_types_file,
+            command.timeframe_file,
+            command.uao_file,
+            command.lrc_input_proj_file,
+            command.monthly_yield_curves_file,
+        )
+
         calculation_id = "test"
 
         # Read CSV files from UploadFile objects
