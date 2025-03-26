@@ -4,6 +4,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 from app.infrastructure.controllers.calculations_controller import calculations_router
 from app.infrastructure.controllers.users_controller import users_router
+from app.infrastructure.controllers.files_controller import files_router
 
 db_service = DatabaseService()
 
@@ -27,3 +28,4 @@ def db(session: Session = Depends(db_service.get_session)):
 
 app.include_router(calculations_router)
 app.include_router(users_router, tags=["Users"])
+app.include_router(files_router, tags=["Files"])
