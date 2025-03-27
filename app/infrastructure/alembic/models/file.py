@@ -5,7 +5,7 @@ import uuid
 import sqlalchemy as sa
 
 
-class File(Base):
+class FileMetadata(Base):
     __tablename__ = "file"
 
     # UUID primary key with default value generation
@@ -19,6 +19,9 @@ class File(Base):
 
     # File name
     name = Column(String, nullable=False)
+
+    # File name
+    url = Column(String, nullable=False, unique=True)
 
     # Define the foreign key constraint explicitly
     __table_args__ = (

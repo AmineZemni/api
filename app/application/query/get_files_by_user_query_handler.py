@@ -7,7 +7,7 @@ from sqlalchemy.exc import NoResultFound
 from uuid import UUID
 
 from app.database import DatabaseService
-from app.infrastructure.alembic.models.file import File
+from app.infrastructure.alembic.models.file import FileMetadata
 
 
 class GetFilesQuery(BaseModel):
@@ -28,11 +28,13 @@ class GetFilesQueryHandler(QueryHandler):
 
         try:
             files_metadata = (
-                session.query(File).filter(File.id_user == query.user_id).all()
+                session.query(FileMetadata)
+                .filter(FileMetadata.id_user == query.user_id)
+                .all()
             )
 
             return (
-                [{"name": file["name"], "url": "unknown"} for file in files_metadata]
+                [{"name": file.name, "url": file.url} for file in files_metadata]
                 if files_metadata
                 else []
             )

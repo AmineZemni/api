@@ -48,6 +48,12 @@ def upgrade() -> None:
             sa.String(),
             nullable=False,
         ),
+        sa.Column(
+            "url",
+            sa.String(),
+            nullable=False,
+            unique=True,
+        ),
         sa.PrimaryKeyConstraint("id", name="file_pkey"),
     )
 
