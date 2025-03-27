@@ -11,6 +11,7 @@ from app.infrastructure.alembic.models.file import FileMetadata
 from app.infrastructure.services.firebase_service import (
     firebase_client,
 )
+from app.application.commands.validators.csv_validator import csvValidator
 
 
 class UploadFileCommand(BaseModel):
@@ -24,6 +25,8 @@ db_service = DatabaseService()
 
 class UploadFileCommandHandler(CommandHandler):
     def execute(self, command: UploadFileCommand) -> None:
+        csvValidator.validate(command.file, command.file_structure)
+
         # Get the session from the database service
         session: Session = db_service.get_session()
 

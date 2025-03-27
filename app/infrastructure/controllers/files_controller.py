@@ -1,7 +1,7 @@
 from typing import List
 from fastapi import APIRouter, Query, UploadFile, Form, File
 
-from app.application.commands.upload_file_query_handler import (
+from app.application.commands.upload_file_command_handler import (
     UploadFileCommand,
     uploadFileCommandHandler,
 )

@@ -15,11 +15,23 @@ bucket_name = os.getenv("FIREBASE_BUCKET_NAME")
 
 
 class FirebaseClient:
+    _initialized = False  # Class-level flag to track initialization
+
     def __init__(self):
         self.bucket_name = bucket_name
         self.logger = logging.getLogger("FirebaseClient")
         self.logger.setLevel(logging.INFO)
 
+        if not FirebaseClient._initialized:
+            self._initialize_firebase()
+            FirebaseClient._initialized = True
+        else:
+            # If already initialized, just get the bucket
+            self.bucket = storage.bucket()
+            self.logger.info("Reusing existing Firebase connection")
+
+    def _initialize_firebase(self):
+        """Separate initialization logic"""
         try:
             self.logger.info("Connecting to Firebase...")
             firebase_cred = json.loads(firebase_secret_key)
