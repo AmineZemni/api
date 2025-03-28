@@ -1,4 +1,4 @@
-from fastapi import UploadFile
+from fastapi import UploadFile , HTTPException
 from pydantic import BaseModel
 from app.application.types import CommandHandler
 from sqlalchemy.orm import Session
@@ -11,7 +11,7 @@ from app.infrastructure.alembic.models.file import FileMetadata
 from app.infrastructure.services.firebase_service import (
     firebase_client,
 )
-from app.application.commands.validators.csv_validator import csvValidator
+from app.application.commands.validators.csv_validator import csvValidator , FileStructure
 
 
 class UploadFileCommand(BaseModel):
@@ -25,7 +25,17 @@ db_service = DatabaseService()
 
 class UploadFileCommandHandler(CommandHandler):
     def execute(self, command: UploadFileCommand) -> None:
-        csvValidator.validate(command.file, command.file_structure)
+
+        # Convert file_structure string to FileStructure enum
+
+        try:
+            file_structure_enum = FileStructure(command.file_structure)
+        except ValueError:
+            raise HTTPException(400, f"Unsupported file structure: {command.file_structure}")
+
+        # On passe ici l'enum plutôt que la chaîne brute
+        csvValidator.validate(command.file, file_structure_enum)
+
 
         # Get the session from the database service
         session: Session = db_service.get_session()
@@ -44,7 +54,7 @@ class UploadFileCommandHandler(CommandHandler):
         # Prepare the file metadata
         file_metadata = {
             "id": file_id,
-            "id_user": command.user_id,
+            "id_user": str(command.user_id),
             "creation_date": datetime.now(),
             "name": command.file_structure,
             "url": file_url,
