@@ -12,6 +12,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
+# TODO : generate FileStructure enum from a list of yml validator file names
 class FileStructure(Enum):
     aoc_step = "aoc_step"
     calc_process = "calc_process"
@@ -20,20 +21,20 @@ class FileStructure(Enum):
     reporting_process = "reporting_process"
     run_types = "run_types"
     timeframe = "timeframe"
-    uao= "uao"
+    uao = "uao"
     lrc_input_proj = "lrc_input_proj"
     monthly_yield_curves = "monthly_yield_curves"
 
 
 class CSVValidator:
-    def __init__(self,chunk_size: int = 1000):
+    def __init__(self, chunk_size: int = 1000):
         self.chunk_size = chunk_size
         self.schemas = self._load_schemas()
         self.common_config = self._load_common_config()
 
     def _load_schemas(self) -> Dict[FileStructure, Dict[str, Any]]:
         yaml_path = os.path.join(os.path.dirname(__file__), "files_structures.yml")
-        
+
         try:
             with open(yaml_path, "r") as f:
                 config = yaml.safe_load(f)
@@ -53,21 +54,17 @@ class CSVValidator:
             for col_name, col_def in fs["schema"]["columns"].items():
                 columns[col_name] = {
                     "types": [t.lower() for t in col_def["types"]],  # Normalize types
-                    "nullable": col_def.get("nullable", False)
+                    "nullable": col_def.get("nullable", False),
                 }
 
             # Process CSV config with defaults
-            csv_config = {
-                "delimiter": ",",
-                "encoding": "utf-8",
-                "quotechar": '"'
-            }
+            csv_config = {"delimiter": ",", "encoding": "utf-8", "quotechar": '"'}
             csv_config.update(fs["schema"].get("csv_config", {}))
 
             schemas[fs_enum] = {
                 "columns": columns,
                 "csv_config": csv_config,
-                "file_pattern": fs["file_pattern"]
+                "file_pattern": fs["file_pattern"],
             }
 
         return schemas
@@ -76,9 +73,9 @@ class CSVValidator:
         yaml_path = os.path.join(os.path.dirname(__file__), "csv_schemas.yml")
         with open(yaml_path, "r") as f:
             config = yaml.safe_load(f)
-        
+
         return config.get("common_types", {})
-    
+
     def validate(self, _file: UploadFile, file_structure: FileStructure) -> None:
         """Main validation entry point handling CSV structure and content"""
         if file_structure not in self.schemas:
@@ -103,7 +100,7 @@ class CSVValidator:
                 dtype=str,
                 keep_default_na=False,
                 na_filter=False,
-                **csv_config
+                **csv_config,
             )
 
             for chunk_num, df in enumerate(reader):
@@ -126,7 +123,9 @@ class CSVValidator:
         except pd.errors.ParserError as e:
             raise HTTPException(400, f"CSV parsing error: {str(e)}")
         except UnicodeDecodeError:
-            raise HTTPException(400, f"Encoding error. Try {csv_config.get('encoding', 'utf-8')}")
+            raise HTTPException(
+                400, f"Encoding error. Try {csv_config.get('encoding', 'utf-8')}"
+            )
         except HTTPException:
             raise
         except Exception as e:
@@ -142,7 +141,9 @@ class CSVValidator:
             errors.append(f"Column mismatch. Expected: {expected}, Found: {actual}")
         return errors
 
-    def _validate_chunk_content(self, df: pd.DataFrame, schema: Dict[str, Any], chunk_num: int) -> List[str]:
+    def _validate_chunk_content(
+        self, df: pd.DataFrame, schema: Dict[str, Any], chunk_num: int
+    ) -> List[str]:
         """Validate data types and constraints for a chunk"""
         errors = []
         # Header offset: Assuming header is on the first line of the file
@@ -156,7 +157,9 @@ class CSVValidator:
                     errors.append(error)
         return errors
 
-    def _validate_value(self, value: str, column: str, rules: Dict[str, Any], line_number: int) -> str:
+    def _validate_value(
+        self, value: str, column: str, rules: Dict[str, Any], line_number: int
+    ) -> str:
         """Validate individual cell value"""
         # Null check
         if not value:
@@ -186,10 +189,12 @@ class CSVValidator:
                         continue
                 return False
             elif dtype in ["int", "int64"]:
-                return value.isdigit() or (value.startswith('-') and value[1:].isdigit())
+                return value.isdigit() or (
+                    value.startswith("-") and value[1:].isdigit()
+                )
             elif dtype in ["float", "int64"]:
                 # Allow scientific notation and different decimal separators
-                cleaned_value = value.replace(',', '.')
+                cleaned_value = value.replace(",", ".")
                 float(cleaned_value)
                 return True
             elif dtype == "str":
@@ -201,12 +206,3 @@ class CSVValidator:
 
 # Main validator instance for use in the controller
 csvValidator = CSVValidator()
-
-
-
-
-
-
-
-
-

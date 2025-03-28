@@ -208,7 +208,6 @@ file_structures:
           types: [str]
           nullable: false
 
-
 common_types:
   date_formats: ["%Y-%m-%d", "%d/%m/%Y"]
   decimal_separators: [".", ","]

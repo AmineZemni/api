@@ -1,17 +1,20 @@
-from fastapi import UploadFile , HTTPException
+from fastapi import UploadFile, HTTPException
 from pydantic import BaseModel
 from app.application.types import CommandHandler
 from sqlalchemy.orm import Session
 from app.database import DatabaseService
 from datetime import datetime
-import uuid
 from sqlalchemy.dialects.postgresql import insert
 
 from app.infrastructure.alembic.models.file import FileMetadata
+from app.infrastructure.alembic.models.user import User
 from app.infrastructure.services.firebase_service import (
     firebase_client,
 )
-from app.application.commands.validators.csv_validator import csvValidator , FileStructure
+from app.application.commands.validators.csv_validator import (
+    csvValidator,
+    FileStructure,
+)
 
 
 class UploadFileCommand(BaseModel):
@@ -25,20 +28,24 @@ db_service = DatabaseService()
 
 class UploadFileCommandHandler(CommandHandler):
     def execute(self, command: UploadFileCommand) -> None:
+        # Get the session from the database service
+        session: Session = db_service.get_session()
+
+        # check if user_id is valid
+        user = session.query(User).filter(User.id == command.user_id).first()
+        if not user:
+            raise HTTPException(404, f"User with id {command.user_id} not found.")
 
         # Convert file_structure string to FileStructure enum
-
         try:
             file_structure_enum = FileStructure(command.file_structure)
         except ValueError:
-            raise HTTPException(400, f"Unsupported file structure: {command.file_structure}")
+            raise HTTPException(
+                400, f"Unsupported file structure: {command.file_structure}"
+            )
 
         # On passe ici l'enum plutôt que la chaîne brute
         csvValidator.validate(command.file, file_structure_enum)
-
-
-        # Get the session from the database service
-        session: Session = db_service.get_session()
 
         # Generate a file path for Firebase based on user_id and file_structure
         file_name = f"{command.user_id}/inputs/{command.file_structure}.csv"
@@ -48,13 +55,9 @@ class UploadFileCommandHandler(CommandHandler):
             command.file, file_name
         )
 
-        # Create a unique ID for the file metadata
-        file_id = str(uuid.uuid4())
-
         # Prepare the file metadata
         file_metadata = {
-            "id": file_id,
-            "id_user": str(command.user_id),
+            "id_user": command.user_id,
             "creation_date": datetime.now(),
             "name": command.file_structure,
             "url": file_url,

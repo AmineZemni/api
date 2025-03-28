@@ -105,5 +105,3 @@ csv_files:
         types: [str]
       timing:
         types: [str]
-
-

@@ -4,7 +4,6 @@ from pydantic import BaseModel
 from app.application.types import QueryHandler
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import NoResultFound
-from uuid import UUID
 
 from app.database import DatabaseService
 from app.infrastructure.alembic.models.file import FileMetadata

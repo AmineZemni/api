@@ -8,14 +8,13 @@ import sqlalchemy as sa
 class FileMetadata(Base):
     __tablename__ = "file"
 
-    # UUID primary key with default value generation
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(String, primary_key=True, default=str(uuid.uuid4))
 
     # Foreign key that references the 'id' column of the 'user' table
-    id_user = Column(UUID(as_uuid=True), nullable=False)
+    id_user = Column(String, nullable=False)
 
     # Creation date, defaulting to the current timestamp
-    creation_date = Column(DateTime, nullable=False, default=uuid.uuid4)
+    creation_date = Column(DateTime, nullable=False)
 
     # File name
     name = Column(String, nullable=False)
