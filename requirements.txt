@@ -10,3 +10,5 @@ python-multipart
 pandas
 pyyaml>=5.4.1
 git+ssh://git@github.com/Novacture/ifrs17-calc-engine.git@staging#egg=ifrs_17_engine
+firebase-admin
+google-cloud-storage

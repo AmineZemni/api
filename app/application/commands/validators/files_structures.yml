@@ -1,0 +1,214 @@
+file_structures:
+  - name: lrc_input_proj
+    file_pattern: "lrc_input_proj*.csv"
+    schema:
+      csv_config:
+        delimiter: ","
+        date_format: "%Y-%m-%d"
+      columns:
+        uoa_id:
+          types: [str]
+          nullable: false
+        contract_type:
+          types: [str]
+          nullable: false
+        liability_type:
+          types: [str]
+          nullable: false
+        cashflow_item:
+          types: [str]
+          nullable: false
+        run_timing:
+          types: [str]
+          nullable: false
+        run_type:
+          types: [str]
+          nullable: false
+        proj_freq:
+          types: [str]
+          nullable: false
+        measure_type:
+          types: [str]
+          nullable: false
+        measure_name:
+          types: [str]
+          nullable: false
+        calc_proj_m:
+          types: [float, int64]
+          nullable: false
+        cf_proj_amt:
+          types: [float, int64]
+          nullable: false
+
+  - name: monthly_yield_curves
+    file_pattern: "monthly_yield_curves*.csv"
+    schema:
+      csv_config:
+        delimiter: ","
+        date_format: "%Y-%m-%d"
+      columns:
+        timeframe_proj_m_date:
+          types: [date]
+          nullable: false
+        timeframe_proj_m:
+          types: [float, int64]
+          nullable: false
+        uoa_id:
+          types: [str]
+          nullable: false
+        lkd_fwd_rt:
+          types: [float, int64]
+          nullable: false
+        lkd_disc_pc:
+          types: [float, int64]
+          nullable: false
+        prv_fwd_rt:
+          types: [float, int64]
+          nullable: false
+        prv_disc_pc:
+          types: [float, int64]
+          nullable: false
+        crr_fwd_rt:
+          types: [float, int64]
+          nullable: false
+        crr_disc_pc:
+          types: [float, int64]
+          nullable: false
+
+  - name: cf_items
+    file_pattern: "cf_items*.csv"
+    schema:
+      csv_config:
+        delimiter: ","
+        date_format: "%Y-%m-%d"
+      columns:
+        cf_item:
+          types: [str]
+          nullable: false
+        cf_desc:
+          types: [str]
+          nullable: false
+        cf_dir:
+          types: [str]
+          nullable: false
+        cf_sign:
+          types: [float, int64]
+          nullable: false
+
+  - name: timeframe
+    file_pattern: "timeframe*.csv"
+    schema:
+      csv_config:
+        delimiter: ","
+        date_format: "%Y-%m-%d"
+      columns:
+        timeframe_id:
+          types: [float, int64]
+          nullable: false
+        timeframe_start_date:
+          types: [date]
+          nullable: false
+        timeframe_dur_m:
+          types: [float, int64]
+          nullable: false
+
+  - name: reporting_process
+    file_pattern: "reporting_process*.csv"
+    schema:
+      csv_config:
+        delimiter: ","
+        date_format: "%Y-%m-%d"
+      columns:
+        reporting_process_id:
+          types: [float, int64]
+          nullable: false
+        reporting_opening_date:
+          types: [date]
+          nullable: false
+        reporting_closing_date:
+          types: [date]
+          nullable: false
+
+  - name: calc_process
+    file_pattern: "calc_process*.csv"
+    schema:
+      csv_config:
+        delimiter: ","
+        date_format: "%Y-%m-%d"
+      columns:
+        calc_process_id:
+          types: [float, int64]
+          nullable: false
+        calc_start_date:
+          types: [date]
+          nullable: false
+        calc_end_date:
+          types: [date]
+          nullable: false
+
+  - name: discount_types
+    file_pattern: "discount_types*.csv"
+    schema:
+      csv_config:
+        delimiter: ","
+        date_format: "%Y-%m-%d"
+      columns:
+        discount_type:
+          types: [str]
+          nullable: false
+        discount_desc:
+          types: [str]
+          nullable: false
+
+  - name: aoc_step
+    file_pattern: "aoc_step*.csv"
+    schema:
+      csv_config:
+        delimiter: ","
+        date_format: "%Y-%m-%d"
+      columns:
+        aoc_step:
+          types: [str]
+          nullable: false
+        aoc_desc:
+          types: [str]
+          nullable: false
+        aoc_timing:
+          types: [str]
+          nullable: false
+
+  - name: uao
+    file_pattern: "uao*.csv"
+    schema:
+      csv_config:
+        delimiter: ","
+        date_format: "%Y-%m-%d"
+      columns:
+        uoa_id:
+          types: [str]
+          nullable: false
+        uoa_initrecog_date:
+          types: [date]
+          nullable: false
+        uoa_expiry_date:
+          types: [date]
+          nullable: false
+
+  - name: run_types
+    file_pattern: "run_types*.csv"
+    schema:
+      csv_config:
+        delimiter: ","
+        date_format: "%Y-%m-%d"
+      columns:
+        run_type:
+          types: [str]
+          nullable: false
+        timing:
+          types: [str]
+          nullable: false
+
+common_types:
+  date_formats: ["%Y-%m-%d", "%d/%m/%Y"]
+  decimal_separators: [".", ","]
+  null_values: ["NA", "NULL", ""]
